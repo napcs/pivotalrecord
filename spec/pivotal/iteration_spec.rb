@@ -347,7 +347,7 @@ describe Pivotal::Iteration do
     end
     it "should get iterations" do
       iterations = Pivotal::Iteration.find_all_by_project_id(@project.id)
-      iterations.each{|i| i.should be_a Pivotal::Iteration}
+      iterations.each{|i| i.should be_a(Pivotal::Iteration)}
       iterations.detect{|i| i.number == 28}.should be_true
 
     end

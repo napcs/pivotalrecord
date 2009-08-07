@@ -1,3 +1,4 @@
+require 'rubygems'
 require 'activesupport'
 require 'rest_client'
 require 'xmlsimple'

@@ -10,7 +10,6 @@ module Pivotal
 
     
     def self.parse_result(project)
-      puts project.inspect
       Pivotal::Project.new( :id => get_content_for(project["id"]),
                             :name => get_content_for(project["name"]) )
     end

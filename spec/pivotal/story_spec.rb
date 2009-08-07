@@ -229,7 +229,7 @@ describe Pivotal::Story do
     end
     it "should get stories" do
       stories = Pivotal::Story.find_all_by_project_id(@project.id)
-      stories.each{|s| s.should be_a Pivotal::Story}
+      stories.each{|s| s.should be_a(Pivotal::Story)}
       stories.detect{|s| s.name == "Deal with web thumbnails"}
       stories.detect{|s| s.name == "Add Recommendations"}
       stories.detect{|s| s.name == "Implement Exception Notification plugin"}

@@ -96,6 +96,10 @@ module Pivotal
       def token
         @@token = Pivotal::Configuration.options[:api_key]
       end
+      
+      def debugging?
+        @@debugging = Pivotal::Configuration.options[:debug] == true
+      end
   
       # retrieves the service url
       # If not set in the configuration, the default
@@ -116,7 +120,7 @@ module Pivotal
       # find a specific record by id
       def find_by_id(id)
         query = "#{self.url}/#{self.resource.pluralize}/#{id}?token=#{self.token}"
-        puts "query : #{query}"
+        puts "query : #{query}" if self.debugging?
         results = RestClient.get query
         result = XmlSimple.xml_in(results.to_s)
         parse_result(result)
@@ -126,7 +130,7 @@ module Pivotal
       def find_all_by_parent_id(parent, id)
         return [] if id.nil?
         query = "#{self.url}/#{parent}/#{id}/#{self.resource.pluralize}?token=#{self.token}"
-        # puts "query : #{query}"
+        puts "query : #{query}" if self.debugging?
         results = RestClient.get query
         results = XmlSimple.xml_in(results.to_s)
         parse_results(results)
@@ -135,9 +139,9 @@ module Pivotal
       # find all records for the given object.
       def find_all
         query ="#{self.url}/#{self.resource.pluralize}?token=#{self.token}"
-        puts "query : #{query}"
+        puts "query : #{query}" if self.debugging?
         results = RestClient.get query
-        puts results.inspect
+        puts results.inspect if self.debugging?
         results = XmlSimple.xml_in(results.to_s)
         parse_results(results)
       end

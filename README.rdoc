@@ -18,6 +18,13 @@ Require the library in your project and then configure it with your API key.
 This is extremely rudimentary and not meant for any sort of production use.
 There is no write support yet, nor are there any search filters. 
 
+
+== Changelog
+
+===0.0.1 
+ * Basic record retrieval from PivotalTracker.
+ 
+ 
 ==License
 Copyright 2009 Brian Hogan
 Licensed under the MIT license.

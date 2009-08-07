@@ -306,7 +306,7 @@ describe Pivotal::Project do
     it "should should create an array of four projects" do
       projects = Pivotal::Project.find_all
       projects.length.should == 4
-      projects.each{|project| project.should be_a Pivotal::Project}
+      projects.each{|project| project.should be_a(Pivotal::Project)}
       projects.detect{|project| project.name == "snippetstash"}
       projects.detect{|project| project.name == "Rails Mentors"}
       projects.detect{|project| project.name == "rPulse"}

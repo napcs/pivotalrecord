@@ -22,7 +22,7 @@ spec = Gem::Specification.new do |s|
   
   # Change these as appropriate
   s.name              = "pivotalrecord"
-  s.version           = "0.1.0"
+  s.version           = "0.0.1"
   s.summary           = "Simple ActiveRecord-style interface for PivotalTracker"
   s.author            = "Brian Hogan"
   s.email             = "brianhogan@naopcs.com"
@@ -36,7 +36,7 @@ spec = Gem::Specification.new do |s|
    s.rdoc_options      = %w(--main README.rdoc)
 
   # Add any extra files to include in the gem (like your README)
-  s.files             = %w(app.rb config.rb config.yml Rakefile) + Dir.glob("{spec,lib}/**/*")
+  s.files             = %w(Rakefile) + Dir.glob("{spec,lib}/**/*")
    
   s.require_paths     = ["lib"]
   
