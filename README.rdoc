@@ -1,0 +1,24 @@
+=PivotalRecord
+
+Provides a simple interface to PivotalTracker using syntax similar to ActiveRecord.
+
+  @projects = Pivotal::Project.find(246)
+  @stories = @projects.first.stories
+
+== Configuring
+
+Require the library in your project and then configure it with your API key.
+
+  require 'pivotal'
+  Pivotal::Configuration.options[:api_key] = "asdfagjasd"
+  
+  
+==Known Issues
+
+This is extremely rudimentary and not meant for any sort of production use.
+There is no write support yet, nor are there any search filters. 
+
+==License
+Copyright 2009 Brian Hogan
+Licensed under the MIT license.
+Use of this library must be in accordance with Pivotal Tracker's terms of service and requires an API key.

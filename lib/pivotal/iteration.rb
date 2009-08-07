@@ -1,4 +1,7 @@
 module Pivotal
+  
+  #==Iteration
+  # An iteration maps to a Pivotal Project and represents the sprint.
   class Iteration < Pivotal::Base
    
     belongs_to :project
