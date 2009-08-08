@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Brian Hogan"]
-  s.date = %q{2009-08-07}
+  s.date = %q{2009-08-08}
   s.email = %q{brianhogan@naopcs.com}
   s.extra_rdoc_files = ["README.rdoc"]
   s.files = ["Rakefile", "spec/pivotal", "spec/pivotal/iteration_spec.rb", "spec/pivotal/project_spec.rb", "spec/pivotal/story_spec.rb", "spec/spec.opts", "spec/spec_helper.rb", "lib/pivotal", "lib/pivotal/base.rb", "lib/pivotal/configuration.rb", "lib/pivotal/iteration.rb", "lib/pivotal/project.rb", "lib/pivotal/story.rb", "lib/pivotal.rb", "README.rdoc"]
@@ -14,6 +14,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://www.napcs.com}
   s.rdoc_options = ["--main", "README.rdoc"]
   s.require_paths = ["lib"]
+  s.rubyforge_project = %q{pivotalrecord}
   s.rubygems_version = %q{1.3.1}
   s.summary = %q{Simple ActiveRecord-style interface for PivotalTracker}
 

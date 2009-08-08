@@ -50,7 +50,7 @@ spec = Gem::Specification.new do |s|
 
   # If you want to publish automatically to rubyforge, you'll may need
   # to tweak this, and the publishing task below too.
-  #s.rubyforge_project = "pivotalrecord"
+  s.rubyforge_project = "pivotalrecord"
 end
 
 # This task actually builds the gem. We also regenerate a static 
