@@ -1,10 +1,12 @@
+$:.unshift(File.dirname(__FILE__) + '/../lib')
+
 require 'rubygems'
 require 'activesupport'
 require 'rest_client'
 require 'xmlsimple'
 
-require 'lib/pivotal/base'
-require 'lib/pivotal/configuration'
-require 'lib/pivotal/project'
-require 'lib/pivotal/story'
-require 'lib/pivotal/iteration'
+require 'pivotal/base'
+require 'pivotal/configuration'
+require 'pivotal/project'
+require 'pivotal/story'
+require 'pivotal/iteration'
