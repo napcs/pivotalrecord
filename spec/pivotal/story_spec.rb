@@ -15,6 +15,31 @@ describe Pivotal::Story do
     FakeWeb.allow_net_connect = true
   end
   
+  describe "With a story" do
+    before(:each) do
+      xml=%Q{<?xml version="1.0" encoding="UTF-8"?>
+      <story>
+        <id type="integer">300970</id>
+        <story_type>release</story_type>
+        <url>http://www.pivotaltracker.com/story/show/300970</url>
+        <current_state>accepted</current_state>
+        <description></description>
+        <name>rel_1-1-5</name>
+        <requested_by>Brian Hogan</requested_by>
+        <created_at type="datetime">2008/12/04 03:00:57 UTC</created_at>
+        <accepted_at type="datetime">2009/01/14 06:32:15 UTC</accepted_at>
+        <deadline type="datetime">2008/12/12 20:00:00 UTC</deadline>
+      </story>
+      }
+      url = "#{@service}/projects/4860/stories/300970?token=#{@token}"
+      FakeWeb.register_uri(:get, url, :string => xml, :content_type => "application/xml", :status => ["200", "OK"])
+      @project = Pivotal::Project.new("id" => "4860", :name => "FeelMySkills")
+    end
+    it "should load the story" do
+      @story = Pivotal::Story.find 300970, :project_id => "4860"
+      @story.id.should == 300970
+    end
+  end
   
   describe "with many stories" do
     before(:each) do
@@ -213,7 +238,7 @@ describe Pivotal::Story do
         </story>
         <story>
           <id type="integer">300472</id>
-          <story_type>feature</story_type>
+          <story_type>bug</story_type>
           <url>http://www.pivotaltracker.com/story/show/300472</url>
           <estimate type="integer">1</estimate>
           <current_state>unscheduled</current_state>
@@ -227,16 +252,69 @@ describe Pivotal::Story do
       FakeWeb.register_uri(:get, url, :string => xml, :content_type => "application/xml", :status => ["200", "OK"])
       @project = Pivotal::Project.new("id" => "4860", :name => "FeelMySkills")
     end
-    it "should get stories" do
+    it "should get stories using find_all_by_project_id" do
       stories = Pivotal::Story.find_all_by_project_id(@project.id)
       stories.each{|s| s.should be_a(Pivotal::Story)}
-      stories.detect{|s| s.name == "Deal with web thumbnails"}
-      stories.detect{|s| s.name == "Add Recommendations"}
-      stories.detect{|s| s.name == "Implement Exception Notification plugin"}
-      stories.detect{|s| s.name == "Implement Pro account subscription"}
-      stories.detect{|s| s.name == "iPhone interface for viewing profiles"}
+      stories.detect{|s| s.name == "Deal with web thumbnails"}.should_not be_nil
+      stories.detect{|s| s.name == "Add Recommendations"}.should_not be_nil
+      stories.detect{|s| s.name == "Implement Exception Notification plugin"}.should_not be_nil
+      stories.detect{|s| s.name == "Implement Pro account subscription"}.should_not be_nil
+      stories.detect{|s| s.name == "iPhone interface for viewing profiles"}.should_not be_nil
       
     end
+    it "should get stories using the project_id option" do
+      stories = Pivotal::Story.find :all, :project_id => @project.id
+      
+      stories.each{|s| s.should be_a(Pivotal::Story)}
+      stories.detect{|s| s.name == "Deal with web thumbnails"}.should_not be_nil
+      stories.detect{|s| s.name == "Add Recommendations"}.should_not be_nil
+      stories.detect{|s| s.name == "Implement Exception Notification plugin"}.should_not be_nil
+      stories.detect{|s| s.name == "Implement Pro account subscription"}.should_not be_nil
+      stories.detect{|s| s.name == "iPhone interface for viewing profiles"}.should_not be_nil
+      
+    end
+    
+    describe "with filter and limit" do
+     before(:each) do
+       xml = %Q{<stories type="array" count="1" limit="1" total="10" filter="type:'feature'">
+         <story>
+           <id type="integer">300939</id>
+           <story_type>feature</story_type>
+           <url>http://www.pivotaltracker.com/story/show/300939</url>
+           <estimate type="integer">1</estimate>
+           <current_state>started</current_state>
+           <description>Images need to be linked and modalbox needs testing in other browsers besides FF and Safari.</description>
+           <name>Finish modalbox implementation</name>
+           <requested_by>Brian Hogan</requested_by>
+           <owned_by>Brian Hogan</owned_by>
+           <created_at type="datetime">2008/12/04 02:33:33 UTC</created_at>
+         </story>
+       </stories>}
+       
+       url = "#{@service}/projects/4860/stories?token=#{@token}&limit=1&filter=type%3A%22feature%22"
+       FakeWeb.register_uri(:get, url, :string => xml, :content_type => "application/xml", :status => ["200", "OK"])
+       @project = Pivotal::Project.new("id" => "4860", :name => "FeelMySkills")
+     end
+     
+     it "should get the story via limit and filter" do
+       @stories = Pivotal::Story.find :all, :project_id => 4860, :filter => {:type => "feature"}, :limit => 1
+       @stories.length.should ==1
+     end
+    end
+
+    
+    it "should get bugs through the proxy" do
+      stories = Pivotal::Story.find :all, :project_id => @project.id
+      stories = stories.bugs
+      stories.each{|s| s.should be_a(Pivotal::Story)}
+      stories.detect{|s| s.name == "Deal with web thumbnails"}.should_not be_nil
+      stories.detect{|s| s.name == "Add Recommendations"}.should be_nil
+      stories.detect{|s| s.name == "Implement Exception Notification plugin"}.should be_nil
+      stories.detect{|s| s.name == "Implement Pro account subscription"}.should be_nil
+      stories.detect{|s| s.name == "iPhone interface for viewing profiles"}.should be_nil
+      
+    end
+    
   end
   
   

@@ -2,9 +2,49 @@
 
 Provides a simple interface to PivotalTracker using syntax similar to ActiveRecord.
 
-  @projects = Pivotal::Project.find(246)
-  @stories = @projects.first.stories
+  @projects = Pivotal::Project.find :all
+  @project = Pivotal::Project.find 24
 
+There's some basic association support built in.
+
+  @stories = @projects.first.stories
+  @iterations = @projects.first.iterations
+
+
+==Working with Stories
+
+Getting all stories for a project
+
+  @project = Pivotal::Project.find 24
+  @stories = @project.stories
+  
+  @stories = Pivotal::Story.find_all_by_project_id 24
+
+Getting a specific story for a project
+  
+  @story = Pivotal::Story.find_by_project_id_and_id 24, 14
+
+or
+
+  @story = Pivotal::Story.find 14, :project_id => 24
+
+Getting a story from a project by name
+  @project = Pivotal::Project.find(246)
+  p.stories.find {|s| s.name = "Deal with web thumbnails"}
+ 
+
+==Filtering
+
+Getting all features for a project
+
+  Pivotal::Story.find :all, :project_id => 4860, :filter => {:type => "feature"}
+
+Filters can be <tt>bug</tt>, <tt>release</tt>, <tt>feature</tt>.
+
+===Limits
+
+ Pivotal::Story.find :all, :project_id => 4860, :filter => {:type => "feature"}, :limit => 2
+ 
 == Configuring
 
 Require the library in your project and then configure it with your API key.
@@ -13,14 +53,24 @@ Require the library in your project and then configure it with your API key.
   Pivotal::Configuration.options[:api_key] = "asdfagjasd"
   
   
+
 ==Known Issues
 
 This is extremely rudimentary and not meant for any sort of production use.
-There is no write support yet, nor are there any search filters. 
+There is no write support yet.
+
 
 
 == Changelog
 
+===0.0.3
+ * Refactored finders
+ * Added CollectionProxy to allow story filtering
+ * Added finders for locating individual projects and stories
+ * refactored models to reduce duplicated code
+ * preserved original hash
+===0.0.2
+ * Fixed requires
 ===0.0.1 
  * Basic record retrieval from PivotalTracker.
  

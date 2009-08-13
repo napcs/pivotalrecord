@@ -39,6 +39,11 @@ describe Pivotal::Project do
       p = Pivotal::Project.find_by_id(4860)
       p.name.should == "FeelMySkills"
     end
+    it "should still have the raw attributes" do
+      p = Pivotal::Project.find_by_id(4860)
+      p.original_hash.should == {"name"=>["FeelMySkills"], "iteration_length"=>[{"type"=>"integer", "content"=>"1"}], "week_start_day"=>["Monday"], "point_scale"=>["0,1,2,3"], "id"=>["4860"]}
+      
+    end
     
     describe "stories" do
       before(:each) do

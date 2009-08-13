@@ -7,6 +7,7 @@ describe Pivotal::Iteration do
     Pivotal::Configuration.options[:api_key] = @token
     FakeWeb.clean_registry
     FakeWeb.allow_net_connect = false
+    @project = Pivotal::Project.new("id" => "4860", :name => "FeelMySkills")
   end
   
   
@@ -343,15 +344,27 @@ describe Pivotal::Iteration do
       </iterations>}
       url = "#{@service}/projects/4860/iterations?token=#{@token}"
       FakeWeb.register_uri(:get, url, :string => xml, :content_type => "application/xml", :status => ["200", "OK"])
-      @project = Pivotal::Iteration.new("id" => "4860", :name => "FeelMySkills")
     end
     it "should get iterations" do
       iterations = Pivotal::Iteration.find_all_by_project_id(@project.id)
       iterations.each{|i| i.should be_a(Pivotal::Iteration)}
       iterations.detect{|i| i.number == 28}.should be_true
-
     end
+
+    
   end
   
+  describe "with an iteration" do
+    before(:each) do
+      url = "#{@service}/projects/4860/iterations?token=#{@token}"
+      FakeWeb.register_uri(:get, url, :string => xml, :content_type => "application/xml", :status => ["200", "OK"])
+      @project = Pivotal::Iteration.new("id" => "4860", :name => "FeelMySkills")
+    end
+    it "should get an iteration by project and id" do
+      iterations = Pivotal::Iteration.find_all_by_project_id(@project.id)
+      iterations.each{|i| i.should be_a(Pivotal::Iteration)}
+      iterations.detect{|i| i.number == 28}.should be_true
+    end
+  end  
   
 end

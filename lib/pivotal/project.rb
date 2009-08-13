@@ -4,16 +4,15 @@ module Pivotal
   # and to get its stories.
   class Project < Pivotal::Base
       
-    attr_accessor :id, :name
+    set_fields :name, :original_hash
   
     has_many :stories  
-
+    has_many :iterations
     
-    def self.parse_result(project)
-      Pivotal::Project.new( :id => get_content_for(project["id"]),
-                            :name => get_content_for(project["name"]) )
+    
+    def backlog()
+      Pivotal::Iteration.backlog_for(self.id)
     end
-    
     
   end
 end
