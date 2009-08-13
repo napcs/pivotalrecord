@@ -2,14 +2,14 @@
 
 Gem::Specification.new do |s|
   s.name = %q{pivotalrecord}
-  s.version = "0.0.2"
+  s.version = "0.0.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Brian Hogan"]
-  s.date = %q{2009-08-12}
+  s.date = %q{2009-08-13}
   s.email = %q{brianhogan@naopcs.com}
   s.extra_rdoc_files = ["README.rdoc"]
-  s.files = ["Rakefile", "spec/pivotal", "spec/pivotal/iteration_spec.rb", "spec/pivotal/project_spec.rb", "spec/pivotal/story_spec.rb", "spec/spec.opts", "spec/spec_helper.rb", "lib/pivotal", "lib/pivotal/base.rb", "lib/pivotal/configuration.rb", "lib/pivotal/iteration.rb", "lib/pivotal/iteration_collection.rb", "lib/pivotal/project.rb", "lib/pivotal/story.rb", "lib/pivotal.rb", "README.rdoc"]
+  s.files = ["Rakefile", "spec/pivotal", "spec/pivotal/base_spec.rb", "spec/pivotal/iteration_spec.rb", "spec/pivotal/project_spec.rb", "spec/pivotal/story_spec.rb", "spec/spec.opts", "spec/spec_helper.rb", "lib/pivotal", "lib/pivotal/base.rb", "lib/pivotal/collection_proxy.rb", "lib/pivotal/configuration.rb", "lib/pivotal/iteration.rb", "lib/pivotal/project.rb", "lib/pivotal/story.rb", "lib/pivotal.rb", "README.rdoc"]
   s.has_rdoc = true
   s.homepage = %q{http://www.napcs.com}
   s.rdoc_options = ["--main", "README.rdoc"]
