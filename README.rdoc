@@ -39,7 +39,15 @@ Getting all features for a project
 
   Pivotal::Story.find :all, :project_id => 4860, :filter => {:type => "feature"}
 
-Filters can be <tt>bug</tt>, <tt>release</tt>, <tt>feature</tt>.
+Filter types can be <tt>bug</tt>, <tt>release</tt>, <tt>feature</tt>.
+
+You can also filter by label:
+
+  Pivotal::Story.find :all, :project_id => 4860, :filter => {:label => "private"}
+
+You can use them together to find labels by type.
+
+Pivotal::Story.find :all, :project_id => 4860, :filter => {:type => "bug", :label => "private"}
 
 ===Limits
 
@@ -62,7 +70,9 @@ There is no write support yet.
 
 
 == Changelog
-
+===0.0.4
+ * Updated readme to show how filter by label works
+ * Fixed story to contain the current_state (gisikw)
 ===0.0.3
  * Refactored finders
  * Added CollectionProxy to allow story filtering

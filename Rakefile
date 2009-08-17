@@ -22,7 +22,7 @@ spec = Gem::Specification.new do |s|
   
   # Change these as appropriate
   s.name              = "pivotalrecord"
-  s.version           = "0.0.3"
+  s.version           = "0.0.4"
   s.summary           = "Simple ActiveRecord-style interface for PivotalTracker"
   s.author            = "Brian Hogan"
   s.email             = "brianhogan@naopcs.com"
